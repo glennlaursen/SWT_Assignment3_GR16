@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
-namespace Microwave.Test.Unit
+namespace Microwave.Test.Integration
 {
     [TestFixture]
     public class TimerTest
