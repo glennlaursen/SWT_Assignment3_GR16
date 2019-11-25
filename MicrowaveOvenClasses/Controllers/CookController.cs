@@ -64,7 +64,7 @@ namespace MicrowaveOvenClasses.Controllers
         public void OnTimerTick(object sender, EventArgs e)
         {
             int remaining = myTimer.TimeRemaining;
-            myDisplay.ShowTime(remaining/60000, (remaining / 1000) % 60);
+            myDisplay.ShowTime(remaining/60000, (remaining / 1000) % 60); //Tid skal være milliseconds konsekvent over det hele.
         }
     }
 }

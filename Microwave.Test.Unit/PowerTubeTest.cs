@@ -1,10 +1,9 @@
 ﻿using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
-using NSubstitute.Core.Arguments;
 using NUnit.Framework;
 
-namespace Microwave.Test.Integration
+namespace Microwave.Test.Unit
 {
     [TestFixture]
     public class PowerTubeTest
