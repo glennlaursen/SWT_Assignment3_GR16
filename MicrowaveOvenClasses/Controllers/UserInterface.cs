@@ -84,7 +84,7 @@ namespace MicrowaveOvenClasses.Controllers
                 case States.SETTIME:
                     myDisplay.Clear();
                     myLight.TurnOn();
-                    myCooker.StartCooking(powerLevel, time*60*1000); //Tid skal være milliseconds konsekvent over det hele.
+                    myCooker.StartCooking(powerLevel, time*60); //Tid skal være seconds konsekvent over det hele.
                     myState = States.COOKING;
                     break;
                 case States.COOKING:

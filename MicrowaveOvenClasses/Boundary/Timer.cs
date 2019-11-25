@@ -43,7 +43,7 @@ namespace MicrowaveOvenClasses.Boundary
         {
             // One tick has passed
             // Do what I should
-            TimeRemaining -= 1000; //Tid skal være milliseconds konsekvent over det hele.
+            TimeRemaining -= 1; //Tid skal være seconds konsekvent over det hele.
             TimerTick?.Invoke(this, EventArgs.Empty);
 
             if (TimeRemaining <= 0)
