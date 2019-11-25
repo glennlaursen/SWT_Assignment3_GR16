@@ -19,14 +19,14 @@ namespace MicrowaveOvenClasses.Boundary
             if (power < 50 || 700 < power) //power skal være i watt?
             {
                 throw new ArgumentOutOfRangeException("power", power, "Must be between 50 and 700 W (incl.)"); 
-            }
+            } //her skal fejlen også ændres fra 50 til 700 som står i usecasen
 
             if (IsOn)
             {
                 throw new ApplicationException("PowerTube.TurnOn: is already on");
             }
 
-            myOutput.OutputLine($"PowerTube works with {power} W"); //også enheden
+            myOutput.OutputLine($"PowerTube works with {power} W"); //enheden skal også ændres til Watt
             IsOn = true;
         }
 
