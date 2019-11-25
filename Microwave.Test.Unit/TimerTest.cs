@@ -36,7 +36,7 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.TimerTick += (sender, args) => pause.Set();
-            uut.Start(2);
+            uut.Start(1);
 
             // wait shorter than a tick, shouldn't come
             //Assert.That(!pause.WaitOne(1000));
@@ -82,10 +82,10 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.Expired += (sender, args) => pause.Set();
-            uut.Start(2000);
+            uut.Start(1);
 
             // wait shorter than expiration, shouldn't come
-            Assert.That(!pause.WaitOne(1900));
+            Assert.That(!pause.WaitOne(900));
 
             uut.Stop();
         }
