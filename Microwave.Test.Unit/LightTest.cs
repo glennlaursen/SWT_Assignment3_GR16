@@ -3,7 +3,7 @@ using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Microwave.Test.Integration
+namespace Microwave.Test.Unit
 {
     [TestFixture]
     public class LightTest
