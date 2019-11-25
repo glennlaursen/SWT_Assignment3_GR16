@@ -1,7 +1,7 @@
 ﻿using MicrowaveOvenClasses.Boundary;
 using NUnit.Framework;
 
-namespace Microwave.Test.Unit
+namespace Microwave.Test.Integration
 {
     [TestFixture]
     public class DoorTest
