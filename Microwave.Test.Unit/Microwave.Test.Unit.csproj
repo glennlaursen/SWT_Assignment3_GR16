@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Microwave.Application\Microwave.Application.csproj">
+      <Project>{403619f7-9dfe-4c73-beef-c1c405cec63d}</Project>
+      <Name>Microwave.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MicrowaveOvenClasses\MicrowaveOvenClasses.csproj">
       <Project>{2b04da6b-afe9-4548-aa05-84d806ba0fa4}</Project>
       <Name>MicrowaveOvenClasses</Name>
