@@ -1,0 +1,116 @@
+\documentclass{article}
+
+%=======================Title settings=======================
+\title{SWT - Mandatory Assigment 3 : Integration Test}
+\author{Gruppe 16}
+\date{\today}
+
+%=======================Use Package==========================
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{hyperref}
+%=======================Package settings=======================
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\lstset{
+  language=Matlab,                % choose the language of the code
+  numbers=left,                   % where to put the line-numbers
+  stepnumber=1,                   % the step between two line-numbers.        
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  %caption={Kode udsnit fra main.c programmet til opgave 1},
+  %label=mainOpg1
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  belowcaptionskip=1\baselineskip,
+  %frame=L,
+  xleftmargin=\parindent,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{blue},
+  commentstyle=\itshape\color{teal},
+  identifierstyle=\color{black},
+  stringstyle=\color{red},
+}
+
+
+%=======================Page settings=======================
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm 
+\textheight 21cm
+\footskip 1.0cm
+
+
+\begin{document}
+%=======================Title========================
+\maketitle
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Navn}       & \textbf{Studieretning} & \textbf{Student Number} \\ \hline
+Sivert Sømmer Sagmo & IKT                    & 201608544             \\ \hline
+Glenn Laursen & IKT                    & 201703930             \\ \hline
+Saeed Soltani & IKT                    & 201710716             \\ \hline
+\end{tabular}
+\end{table}
+
+Github Repository : \url{https://github.com/glennlaursen/SWT_Assignment3_GR16/}
+
+Jenkins Unit Test : \url{http://ci3.ase.au.dk:8080/job/SWT_E2019_16_MicroWave/}
+
+Jenkins Integration Test : \url{http://ci3.ase.au.dk:8080/job/SWT_E2019_16_MicroWave_Integration/}
+
+\tableofcontents
+\pagebreak
+%=======================Sections=======================
+
+\include{Sections/tree}
+\include{Sections/Plan}
+
+%=======================Ex. Inserts====================
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=1.7]{universe}
+%\caption{The Universe}
+%\label{fig:universe}
+%\end{figure}
+
+%\begin{lstlisting}[caption=Caption here]
+%\end[lstlisting]
+
+% \begin{equation}
+%     H(s) = \frac{s + \omega_1}{s + \omega_2}
+%     \label{eq:3.14}
+% \end{equation}
+
+
+
+%\bibliographystyle{plain}
+%\bibliography{references}
+\end{document}
