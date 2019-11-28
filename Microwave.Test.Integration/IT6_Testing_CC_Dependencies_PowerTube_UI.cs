@@ -11,6 +11,8 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT6_Testing_CC_Dependencies_PowerTube_UI
     {
+        private ICookController _T;
+        private ITimer _timer;
         private IPowerTube _powerTube;
         private IUserInterface _userInterface;
         private IOutput _output;
@@ -33,6 +35,7 @@ namespace Microwave.Test.Integration
             _userInterface = new UserInterface(_pButton,_tButton,_scButton,
                                                 _door,_display,_light,controller);
             //Class undertest
+            _T = new CookController(_timer, _display, _powerTube, _userInterface);
         }
     }
 }
