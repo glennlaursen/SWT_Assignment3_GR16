@@ -65,6 +65,7 @@
     <Compile Include="IT12_T_Display_Dependencies_Output.cs" />
     <Compile Include="IT3_T_Timer_Dependencies_CookController.cs" />
     <Compile Include="IT4_T_UI_Dependencies_CC_Display_Light.cs" />
+    <Compile Include="IT5_T_UI_Dependencies_CC_Display_Light.cs" />
     <Compile Include="IT6_Testing_CC_Dependencies_PowerTube_UI.cs" />
     <Compile Include="IT1_T_CookController_X_Display_PowerTube_S_Timer_Output.cs" />
     <Compile Include="IT2_T_CookController_X_Display_PowerTube_Timer_S_Output.cs" />
