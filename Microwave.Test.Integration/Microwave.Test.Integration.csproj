@@ -73,6 +73,10 @@
       <Project>{403619f7-9dfe-4c73-beef-c1c405cec63d}</Project>
       <Name>Microwave.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Microwave.Test.Unit\Microwave.Test.Unit.csproj">
+      <Project>{2b2735ba-ef0a-42c4-8457-25786acf90d9}</Project>
+      <Name>Microwave.Test.Unit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MicrowaveOvenClasses\MicrowaveOvenClasses.csproj">
       <Project>{2b04da6b-afe9-4548-aa05-84d806ba0fa4}</Project>
       <Name>MicrowaveOvenClasses</Name>
