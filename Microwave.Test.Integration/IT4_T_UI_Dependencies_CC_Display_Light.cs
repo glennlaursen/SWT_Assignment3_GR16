@@ -14,7 +14,6 @@ namespace Microwave.Test.Integration
         private IUserInterface ui;
         private IDisplay display;
         private ILight light;
-        private IPowerTube powerTube;
         private IButton powerButton;
         private IButton timeButton;
         private IButton startCancelButton;
@@ -26,7 +25,6 @@ namespace Microwave.Test.Integration
         {
             //Subs
             output = Substitute.For<IOutput>();
-            powerTube = Substitute.For<IPowerTube>();
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
@@ -46,10 +44,12 @@ namespace Microwave.Test.Integration
         {
             for (int i = 0; i < power / 50; i++)
             {
-                powerButton.Pressed += Raise.Event();
+                //powerButton.Pressed += Raise.Event();
+                ui.OnPowerPressed(powerButton,EventArgs.Empty);
             }
 
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains(Convert.ToString(power))));
+            
         }
 
         [TestCase(1)]
@@ -60,7 +60,7 @@ namespace Microwave.Test.Integration
             powerButton.Pressed += Raise.Event();
             for (int i = 1; i <= minutes; i++)
             {
-                timeButton.Pressed += Raise.Event();
+                ui.OnTimePressed(timeButton, EventArgs.Empty);
             }
             
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains(Convert.ToString(minutes))));
@@ -69,23 +69,23 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_Display_Clear()
         {
-            powerButton.Pressed += Raise.Event();
-            startCancelButton.Pressed += Raise.Event();
+            ui.OnPowerPressed(powerButton, EventArgs.Empty);
+            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains("Display cleared")));
         }
 
         [Test]
         public void UI_Light_On()
         {
-            door.Opened += Raise.Event();
+            ui.OnDoorOpened(door, EventArgs.Empty);
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains("on")));
         }
 
         [Test]
         public void UI_Light_Off()
         {
-            door.Opened += Raise.Event();
-            door.Closed += Raise.Event();
+            ui.OnDoorOpened(door, EventArgs.Empty);
+            ui.OnDoorClosed(door, EventArgs.Empty);
 
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains("off")));
         }
