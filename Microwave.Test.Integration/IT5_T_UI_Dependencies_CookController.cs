@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT5_T_UI_Dependencies_CC_Display_Light
+    public class IT5_T_UI_Dependencies_CookController
     {
         private IUserInterface ui;
         private ICookController cooker;
@@ -25,16 +25,18 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
+            //Subs
             output = Substitute.For<IOutput>();
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
             door = Substitute.For<IDoor>();
-
             powerTube = Substitute.For<IPowerTube>();
             light = Substitute.For<ILight>();
             display = Substitute.For<IDisplay>();
             timer = Substitute.For<ITimer>();
+
+            //Real
             cooker = new CookController(timer, display, powerTube);
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             cooker = new CookController(timer, display, powerTube, ui);
@@ -53,7 +55,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_CC_CancelCooking_PowerTubeOff()
         {
-            ui.OnPowerPressed(powerButton, EventArgs.Empty); //Pressed once : 50 W
+            ui.OnPowerPressed(powerButton, EventArgs.Empty);
             ui.OnTimePressed(timeButton, EventArgs.Empty);
             ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
             ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
