@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="IT12_T_Display_Dependencies_Output.cs" />
+    <Compile Include="IT13_T_Light_Dependencies_Output.cs" />
     <Compile Include="IT3_T_Timer_Dependencies_CookController.cs" />
     <Compile Include="IT4_T_UI_Dependencies_CC_Display_Light.cs" />
     <Compile Include="IT5_T_UI_Dependencies_CC_Display_Light.cs" />

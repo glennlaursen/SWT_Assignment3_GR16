@@ -13,35 +13,49 @@ using NSubstitute.ExceptionExtensions;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT12_T_Display_Dependencies_Output
+    public class IT13_T_Light_Dependencies_Output
     {
-        private IDisplay _IT;
         private IOutput _output;
+        private ILight _IT;
         [SetUp]
         public void Setup()
         {
             _output = new Output();
-            _IT = new Display(_output);
+            _IT = new Light(_output);
         }
+
         [Test]
-        public void Display_OutputTimeITS()
+        public void LightOn_OutputTest()
         {
             string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            _IT.ShowTime(5, 30);
+            _IT.TurnOn();
             Log = stringWriter.ToString();
-            Assert.That(Log, Is.EqualTo("Display shows: 05:30\r\n"));
+            Assert.That(Log, Is.EqualTo("Light is turned on\r\n"));
         }
+
         [Test]
-        public void Display_OutputPowerITS()
+        public void LightOff_WhileLightOn_OutputTest()
+        {
+            _IT.TurnOn();
+            string Log;
+            StringWriter stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+            _IT.TurnOff();
+            Log = stringWriter.ToString();
+            Assert.That(Log, Is.EqualTo("Light is turned off\r\n"));
+        }
+
+        [Test]
+        public void LightOff_OutputTest()
         {
             string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            _IT.ShowPower(50);
+            _IT.TurnOff();
             Log = stringWriter.ToString();
-            Assert.AreEqual(Log, "Display shows: 50 W\r\n");
+            Assert.AreEqual(Log, "");
         }
     }
 }
