@@ -30,10 +30,20 @@ namespace Microwave.Test.Integration
         {
             //classes faked
             _output = Substitute.For<IOutput>();
+            _pButton = Substitute.For<IButton>();
+            _door = Substitute.For<IDoor>();
+            _display = Substitute.For<IDisplay>();
+            _light = Substitute.For<ILight>();
             //classes used
             _powerTube = new PowerTube(_output);
             _userInterface = new UserInterface(_pButton,_tButton,_scButton,
                                                 _door,_display,_light,controller);
+            _pButton = new Button();
+            _tButton = new Button();
+            _scButton = new Button();
+            _door = new Door();
+            _light = new Light(_output);
+            _display = new Display(_output);
             //Class undertest
             _T = new CookController(_timer, _display, _powerTube, _userInterface);
         }
