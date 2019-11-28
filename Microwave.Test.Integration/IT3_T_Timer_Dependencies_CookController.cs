@@ -44,7 +44,7 @@ namespace Microwave.Test.Integration
         public void StartTimer_TimerExpiredEvent_CookingIsDone()
         {
             cooker.StartCooking(333,1);
-            Thread.Sleep(61*1000);
+            Thread.Sleep(1100);
             userInterface.Received(1).CookingIsDone();
             powerTube.Received(1).TurnOff();
         }
@@ -53,7 +53,7 @@ namespace Microwave.Test.Integration
         public void StartTimer_TimerExpiredEvent_OutputShowsNoTimeLeft()
         {
             timer.Start(1);
-            Thread.Sleep(61 * 1000);
+            Thread.Sleep(1100);
             output.Received(1).OutputLine(Arg.Is<string>(str => str.Equals("Display shows: 00:00")));
         }
     }

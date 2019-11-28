@@ -8,7 +8,7 @@ using NSubstitute;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT4_T_UI_Dependencies_CC_Display_Light
+    public class IT4_T_UI_Dependencies_Display_Light
     {
         private ICookController cooker;
         private IUserInterface ui;

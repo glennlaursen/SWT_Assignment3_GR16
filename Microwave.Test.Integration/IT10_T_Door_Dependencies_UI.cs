@@ -8,15 +8,12 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT5_T_UI_Dependencies_CC_Display_Light
+    public class IT10_T_Door_Dependencies_UI
     {
         private IUserInterface ui;
         private ICookController cooker;
-        private ITimer timer;
         private IDisplay display;
         private ILight light;
-        private IPowerTube powerTube;
-        private IOutput output;
         private IDoor door;
         private IButton powerButton;
         private IButton timeButton;
@@ -25,42 +22,59 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            output = Substitute.For<IOutput>();
+            //Subs
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
-            door = Substitute.For<IDoor>();
-
-            powerTube = Substitute.For<IPowerTube>();
+            cooker = Substitute.For<ICookController>();
             light = Substitute.For<ILight>();
             display = Substitute.For<IDisplay>();
-            timer = Substitute.For<ITimer>();
-            cooker = new CookController(timer, display, powerTube);
+            
+            //Real
+            door = new Door();
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
-            cooker = new CookController(timer, display, powerTube, ui);
         }
 
         [Test]
-        public void UI_CC_PowerPressed_CookerStartsPowerTube()
+        public void ReadyState_OnDoorOpened_LightTurnedOn()
         {
-            ui.OnPowerPressed(powerButton, EventArgs.Empty); //Pressed once : 50 W
-            ui.OnTimePressed(timeButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
-
-            powerTube.Received(1).TurnOn(50);
+            door.Open();
+            light.Received().TurnOn();
         }
 
         [Test]
-        public void UI_CC_CancelCooking_PowerTubeOff()
+        public void SetPowerState_OnDoorOpened_LightTurnedOn()
         {
-            ui.OnPowerPressed(powerButton, EventArgs.Empty); //Pressed once : 50 W
-            ui.OnTimePressed(timeButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
-
-            powerTube.Received(1).TurnOff();
+            ui.OnPowerPressed(powerButton, EventArgs.Empty);
+            door.Open();
+            light.Received().TurnOn();
         }
 
-        
+        [Test]
+        public void SetTimeState_OnDoorOpened_LightTurnedOn()
+        {
+            ui.OnTimePressed(timeButton, EventArgs.Empty);
+            door.Open();
+            light.Received().TurnOn();
+        }
+
+        [Test]
+        public void CookingState_OnDoorOpened_CookingStops()
+        {
+            ui.OnPowerPressed(powerButton, EventArgs.Empty);
+            ui.OnTimePressed(timeButton, EventArgs.Empty);
+            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
+
+            door.Open();
+            cooker.Received().Stop();
+        }
+
+        [Test]
+        public void DoorOpenedState_OnDoorClosed_LightTurnedOff()
+        {
+            door.Open();
+            door.Close();
+            light.Received().TurnOff();
+        }
     }
 }
