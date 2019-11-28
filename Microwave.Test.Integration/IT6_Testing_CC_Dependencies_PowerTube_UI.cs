@@ -42,7 +42,7 @@ namespace Microwave.Test.Integration
         }
         //UI Test
         [Test]
-        public void OnTimeExpiredOutputsCorrect()
+        public void TimeExpired_DisplayCleared()
         {
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
