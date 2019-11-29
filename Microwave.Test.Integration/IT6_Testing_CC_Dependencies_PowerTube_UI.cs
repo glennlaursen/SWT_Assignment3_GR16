@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+using System.IO;
 using NSubstitute;
 using NUnit.Framework;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
+using NSubstitute.ExceptionExtensions;
 
 namespace Microwave.Test.Integration
 {
@@ -42,13 +47,23 @@ namespace Microwave.Test.Integration
         }
         //UI Test
         [Test]
-        public void TimeExpired_DisplayCleared()
+        public void CookingIsDone_OnTimeExpired_DisplayCleared_Test()
         {
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _StartCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _IT.OnTimerExpired(this, EventArgs.Empty);
             _output.Received().OutputLine("Display cleared");
+        }
+
+        [Test]
+        public void CookingIsDone_TurnOffLights_Test()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _StartCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _IT.OnTimerExpired(this, EventArgs.Empty);
+            _light.Received().TurnOff();
         }
         //powertube test
         [Test]
