@@ -46,7 +46,7 @@ namespace Microwave.Test.Unit
         [Test]
         public void Cooking_TimerTick_DisplayCalled()
         {
-            //uut.StartCooking(50, 60);
+            uut.StartCooking(50, 60);
 
             timer.TimeRemaining.Returns(115);
             timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);

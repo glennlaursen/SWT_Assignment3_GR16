@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using NSubstitute;
 using NUnit.Framework;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute.ExceptionExtensions;
+using NUnit.Framework.Internal.Execution;
 
 namespace Microwave.Test.Integration
 {
@@ -16,6 +18,9 @@ namespace Microwave.Test.Integration
         private IDisplay _display;
         private ITimer _timer;
         private IOutput _output;
+
+        //private EventHandler _expiredArgs;
+        private bool _eventExpired;
 
         [SetUp]
         public void Setup()
@@ -30,33 +35,22 @@ namespace Microwave.Test.Integration
 
             // Class under test
             _T = new CookController(_timer, _display, _powerTube);
+
+            
         }
-
-        /* === TIMER IS NOT TESTED IN T1 -> TESTED IN T2
-        #region Timer
-
-        [Test]
-        public void Cooking()
-        {
-            _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
-        }
-
-        [Test]
-        public void expire()
-        {
-            _timer.Expired += Raise.EventWith(this, EventArgs.Empty);
-        }
-
-        #endregion
-        */
 
         // === TEST DISPLAY ===
         #region Display
         [Test]
         public void CookController_OnTimerTick_ShowTime()
         {
+            _timer.TimeRemaining.Returns(09);
+
+            _T.StartCooking(50,10);
             _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
-            _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Display shows:")));
+            //_T.OnTimerTick(new object(), EventArgs.Empty);
+
+            _output.Received().OutputLine(Arg.Is<string>(str => str.Equals("Display shows: 00:09")));
         }
         #endregion
 
@@ -108,19 +102,22 @@ namespace Microwave.Test.Integration
         [Test]
         public void CookController_Stop_TurnOff_AlreadyOff()
         {
-            //_T.StartCooking(50, 10);
-            //_powerTube.TurnOff();
-
             _T.Stop();
             _output.DidNotReceive().OutputLine(Arg.Any<string>());
         }
-
+        
+        /* === DON'T NEED TO TEST THAT HER
         [Test]
         public void CookController_OnTimerExpired_TurnOff()
         {
+            //_T.StartCooking(100, 60);
+            _timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
+            //_timer.Expired += Raise.EventWith(this, System.EventArgs.Empty);
+
+            //_output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"PowerTube turned off")));
         }
-
+        */
         #endregion
 
     }
