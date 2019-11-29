@@ -62,10 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="IT10_T_Door_Dependencies_UI.cs" />
-    <Compile Include="IT11_T_Display_X_Output.cs" />
-    <Compile Include="IT12_T_Display_Dependencies_Output.cs" />
-    <Compile Include="IT13_T_Light_Dependencies_Output.cs" />
+    <Compile Include="IT8_T_Door_Dependencies_UI.cs" />
+    <Compile Include="IT9_T_Display_X_Output.cs" />
+    <Compile Include="IT10_T_Display_Dependencies_Output.cs" />
+    <Compile Include="IT11_T_Light_Dependencies_Output.cs" />
     <Compile Include="IT7_T_UserInterface_X_Button.cs" />
     <Compile Include="IT3_T_Timer_Dependencies_CookController.cs" />
     <Compile Include="IT4_T_UI_Dependencies_Display_Light.cs" />
@@ -73,7 +73,6 @@
     <Compile Include="IT6_Testing_CC_Dependencies_PowerTube_UI.cs" />
     <Compile Include="IT1_T_CookController_X_Display_PowerTube_S_Timer_Output.cs" />
     <Compile Include="IT2_T_CookController_X_Display_PowerTube_Timer_S_Output.cs" />
-    <Compile Include="IT9_T_UserInterface_X_Door.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
