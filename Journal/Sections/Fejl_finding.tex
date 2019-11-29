@@ -1,0 +1,11 @@
+\section{Fejl rettelser}
+
+\subsection{Powertube}
+i funktionen TurnOn i klassen PowerTube var fejlen at i stedet for enheden var i Watt så var enheden i procent. Valideringen i if sætningen blev ændret fra 50 til 700. hvor der originalt stod 1 til 100. OutputLine der skal procent ændres til Watt
+\subsection{Timer}
+i klassen Timer og UserInterface der er enhederne ikke konsekvent. hele tiden så vi har ændret i Timer klassen i funktionen OnTimerEvent hvor TimeRemaining er ændret til 1 hvor den var 1000 før 
+\subsection{Unit Test PowerTube og Timer}
+vi har rettet de fejl der hører til under de fejl vi fandt i de tilhørende boundary klasser. f.eks. i Unit testen TurnOn\_HighPower\_ThrowsExpection ændrede vi power fra 101 til 701.
+
+\subsection{Diagrammer}
+fra Set time til Cooking i state diagrammet så er der ikke staten Turn On light når man cooker. Men det er der i sekvens diagrammet.
