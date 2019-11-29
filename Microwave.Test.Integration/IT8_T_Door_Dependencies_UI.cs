@@ -76,5 +76,7 @@ namespace Microwave.Test.Integration
             door.Close();
             light.Received().TurnOff();
         }
+
+        
     }
 }
