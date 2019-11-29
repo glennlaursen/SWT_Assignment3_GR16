@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT10_T_Door_Dependencies_UI
+    public class IT8_T_Door_Dependencies_UI
     {
         private IUserInterface ui;
         private ICookController cooker;

@@ -13,7 +13,7 @@ using NSubstitute.ExceptionExtensions;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT12_T_Display_Dependencies_Output
+    public class IT10_T_Display_Dependencies_Output
     {
         private IDisplay _IT;
         private IOutput _output;

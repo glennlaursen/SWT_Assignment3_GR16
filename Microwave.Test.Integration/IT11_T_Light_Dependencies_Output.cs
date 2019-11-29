@@ -1,65 +1,61 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using NSubstitute;
 using NUnit.Framework;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute.ExceptionExtensions;
-using NUnit.Framework.Internal.Execution;
+
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT11_T_Display_X_Output
+    public class IT11_T_Light_Dependencies_Output
     {
-        private IDisplay _T;
         private IOutput _output;
-
+        private ILight _IT;
         [SetUp]
         public void Setup()
         {
             _output = new Output();
-            _T = new Display(_output);
+            _IT = new Light(_output);
         }
 
         [Test]
-        public void Display_ShowTime_()
+        public void LightOn_OutputTest()
         {
-            string msgOut;
+            string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-
-            _T.ShowTime(10, 15);
-
-            msgOut = stringWriter.ToString();
-            Assert.That(msgOut, Is.EqualTo("Display shows: 10:15\r\n"));
+            _IT.TurnOn();
+            Log = stringWriter.ToString();
+            Assert.That(Log, Is.EqualTo("Light is turned on\r\n"));
         }
 
         [Test]
-        public void Display_ShowPower_()
+        public void LightOff_WhileLightOn_OutputTest()
         {
-            string msgOut;
+            _IT.TurnOn();
+            string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-
-            _T.ShowPower(50);
-
-            msgOut = stringWriter.ToString();
-            Assert.That(msgOut, Is.EqualTo("Display shows: 50 W\r\n"));
+            _IT.TurnOff();
+            Log = stringWriter.ToString();
+            Assert.That(Log, Is.EqualTo("Light is turned off\r\n"));
         }
 
         [Test]
-        public void Display_Clear_()
+        public void LightOff_OutputTest()
         {
-            string msgOut;
+            string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-
-            _T.Clear();
-
-            msgOut = stringWriter.ToString();
-            Assert.That(msgOut, Is.EqualTo("Display cleared\r\n"));
+            _IT.TurnOff();
+            Log = stringWriter.ToString();
+            Assert.AreEqual(Log, "");
         }
     }
 }
