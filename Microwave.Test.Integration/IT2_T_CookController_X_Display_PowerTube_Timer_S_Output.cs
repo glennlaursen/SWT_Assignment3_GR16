@@ -13,7 +13,7 @@ namespace Microwave.Test.Integration
 {
     public class IT2_T_CookController_X_Display_PowerTube_Timer_S_Output
     {
-        private ICookController _T;
+        private ICookController _sut;
         private IPowerTube _powerTube;
         private IDisplay _display;
         private ITimer _timer;
@@ -31,7 +31,7 @@ namespace Microwave.Test.Integration
             _powerTube = new PowerTube(_output);
 
             // Class under test
-            _T = new CookController(_timer, _display, _powerTube);
+            _sut = new CookController(_timer, _display, _powerTube);
         }
 
         // === TEST TIMER ===
@@ -43,7 +43,7 @@ namespace Microwave.Test.Integration
             ManualResetEvent pause = new ManualResetEvent(false);
 
             _timer.TimerTick += (sender, args) => pause.Set();
-            _T.StartCooking(50,1);
+            _sut.StartCooking(50,1);
             Assert.That(pause.WaitOne(1100));
         }
 
@@ -53,7 +53,7 @@ namespace Microwave.Test.Integration
             ManualResetEvent pause = new ManualResetEvent(false);
 
             _timer.TimerTick += (sender, args) => pause.Set();
-            _T.StartCooking(50, 1);
+            _sut.StartCooking(50, 1);
             Assert.That(!pause.WaitOne(900));
         }
         #endregion

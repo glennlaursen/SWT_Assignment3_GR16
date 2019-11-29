@@ -16,12 +16,12 @@ namespace Microwave.Test.Integration
     public class IT11_T_Light_Dependencies_Output
     {
         private IOutput _output;
-        private ILight _IT;
+        private ILight _sut;
         [SetUp]
         public void Setup()
         {
             _output = new Output();
-            _IT = new Light(_output);
+            _sut = new Light(_output);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Microwave.Test.Integration
             string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            _IT.TurnOn();
+            _sut.TurnOn();
             Log = stringWriter.ToString();
             Assert.That(Log, Is.EqualTo("Light is turned on\r\n"));
         }
@@ -38,11 +38,11 @@ namespace Microwave.Test.Integration
         [Test]
         public void LightOff_WhileLightOn_OutputTest()
         {
-            _IT.TurnOn();
+            _sut.TurnOn();
             string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            _IT.TurnOff();
+            _sut.TurnOff();
             Log = stringWriter.ToString();
             Assert.That(Log, Is.EqualTo("Light is turned off\r\n"));
         }
@@ -53,7 +53,7 @@ namespace Microwave.Test.Integration
             string Log;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            _IT.TurnOff();
+            _sut.TurnOff();
             Log = stringWriter.ToString();
             Assert.AreEqual(Log, "");
         }

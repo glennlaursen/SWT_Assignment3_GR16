@@ -13,53 +13,41 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT9_T_Display_X_Output
     {
-        private IDisplay _T;
+        private IPowerTube _sut;
         private IOutput _output;
 
         [SetUp]
         public void Setup()
         {
             _output = new Output();
-            _T = new Display(_output);
+            _sut = new PowerTube(_output);
         }
 
         [Test]
-        public void Display_ShowTime_()
+        public void PowerTube_TurnOn_OutputPower()
         {
             string msgOut;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            _T.ShowTime(10, 15);
+            _sut.TurnOn(50);
 
             msgOut = stringWriter.ToString();
-            Assert.That(msgOut, Is.EqualTo("Display shows: 10:15\r\n"));
+            Assert.That(msgOut, Is.EqualTo("PowerTube works with 50 W\r\n"));
         }
 
         [Test]
-        public void Display_ShowPower_()
+        public void PowerTube_TurnOn_OutputTurnOff()
         {
             string msgOut;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
-            _T.ShowPower(50);
+            _sut.TurnOn(50);
+            _sut.TurnOff();
 
             msgOut = stringWriter.ToString();
-            Assert.That(msgOut, Is.EqualTo("Display shows: 50 W\r\n"));
-        }
-
-        [Test]
-        public void Display_Clear_()
-        {
-            string msgOut;
-            StringWriter stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            _T.Clear();
-
-            msgOut = stringWriter.ToString();
-            Assert.That(msgOut, Is.EqualTo("Display cleared\r\n"));
+            Assert.That(msgOut, Is.EqualTo("PowerTube works with 50 W\r\nPowerTube turned off\r\n"));
         }
     }
 }

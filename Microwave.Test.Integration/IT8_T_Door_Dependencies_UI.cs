@@ -14,7 +14,7 @@ namespace Microwave.Test.Integration
         private ICookController cooker;
         private IDisplay display;
         private ILight light;
-        private IDoor door;
+        private IDoor _sut;
         private IButton powerButton;
         private IButton timeButton;
         private IButton startCancelButton;
@@ -31,14 +31,14 @@ namespace Microwave.Test.Integration
             display = Substitute.For<IDisplay>();
             
             //Real
-            door = new Door();
-            ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            _sut = new Door();
+            ui = new UserInterface(powerButton, timeButton, startCancelButton, _sut, display, light, cooker);
         }
 
         [Test]
         public void ReadyState_OnDoorOpened_LightTurnedOn()
         {
-            door.Open();
+            _sut.Open();
             light.Received().TurnOn();
         }
 
@@ -46,7 +46,7 @@ namespace Microwave.Test.Integration
         public void SetPowerState_OnDoorOpened_LightTurnedOn()
         {
             ui.OnPowerPressed(powerButton, EventArgs.Empty);
-            door.Open();
+            _sut.Open();
             light.Received().TurnOn();
         }
 
@@ -54,7 +54,7 @@ namespace Microwave.Test.Integration
         public void SetTimeState_OnDoorOpened_LightTurnedOn()
         {
             ui.OnTimePressed(timeButton, EventArgs.Empty);
-            door.Open();
+            _sut.Open();
             light.Received().TurnOn();
         }
 
@@ -65,15 +65,15 @@ namespace Microwave.Test.Integration
             ui.OnTimePressed(timeButton, EventArgs.Empty);
             ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
 
-            door.Open();
+            _sut.Open();
             cooker.Received().Stop();
         }
 
         [Test]
         public void DoorOpenedState_OnDoorClosed_LightTurnedOff()
         {
-            door.Open();
-            door.Close();
+            _sut.Open();
+            _sut.Close();
             light.Received().TurnOff();
         }
 

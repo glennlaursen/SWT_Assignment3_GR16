@@ -15,7 +15,7 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT6_Testing_CC_Dependencies_PowerTube_UI
     {
-        private CookController _IT;
+        private CookController _sut;
         private IPowerTube _powerTube;
         private ITimer _timer;
         private IOutput _output;
@@ -40,10 +40,10 @@ namespace Microwave.Test.Integration
             _timer = new MicrowaveOvenClasses.Boundary.Timer();
             _display = new Display(_output);
             _powerTube = new PowerTube(_output);
-            _IT = new CookController(_timer, _display, _powerTube);
+            _sut = new CookController(_timer, _display, _powerTube);
             _userInterface = new UserInterface(_timeButton,_powerButton,_StartCancelButton,
-                                                _door,_display,_light,_IT);
-            _IT.UI = _userInterface;
+                                                _door,_display,_light,_sut);
+            _sut.UI = _userInterface;
         }
         //UI Test
         [Test]
@@ -52,7 +52,7 @@ namespace Microwave.Test.Integration
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _StartCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            _IT.OnTimerExpired(this, EventArgs.Empty);
+            _sut.OnTimerExpired(this, EventArgs.Empty);
             _output.Received().OutputLine("Display cleared");
         }
 
@@ -62,21 +62,21 @@ namespace Microwave.Test.Integration
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _StartCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            _IT.OnTimerExpired(this, EventArgs.Empty);
+            _sut.OnTimerExpired(this, EventArgs.Empty);
             _light.Received().TurnOff();
         }
         //powertube test
         [Test]
         public void CookController_TurnOn_Test()
         {
-            _IT.StartCooking(50, 2);
+            _sut.StartCooking(50, 2);
             _output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube works with 50 W"));
         }
         [Test]
         public void CookController_TurnOnAndTurnOff_Test()
         {
-            _IT.StartCooking(50, 1);
-            _IT.Stop();
+            _sut.StartCooking(50, 1);
+            _sut.Stop();
             _output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube turned off"));
         }
     }

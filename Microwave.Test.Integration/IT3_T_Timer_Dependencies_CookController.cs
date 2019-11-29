@@ -11,7 +11,7 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT3_Timer
     {
-        private ITimer timer;
+        private ITimer _sut;
         private IPowerTube powerTube;
         private IUserInterface userInterface;
         private IDisplay display;
@@ -28,14 +28,14 @@ namespace Microwave.Test.Integration
 
             //Real
             display = new Display(output);
-            timer = new Timer();
-            cooker = new CookController(timer, display, powerTube, userInterface);
+            _sut = new Timer();
+            cooker = new CookController(_sut, display, powerTube, userInterface);
         }
 
         [Test]
         public void StartTimer_TimerTickEvent_OutputShowsCurrentTime()
         {
-            timer.Start(1);
+            _sut.Start(1);
             Thread.Sleep(1100);
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Display shows:")));
         }
@@ -52,7 +52,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void StartTimer_TimerExpiredEvent_OutputShowsNoTimeLeft()
         {
-            timer.Start(1);
+            _sut.Start(1);
             Thread.Sleep(1100);
             output.Received(1).OutputLine(Arg.Is<string>(str => str.Equals("Display shows: 00:00")));
         }

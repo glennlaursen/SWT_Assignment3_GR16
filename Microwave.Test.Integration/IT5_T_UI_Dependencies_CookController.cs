@@ -10,7 +10,7 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT5_T_UI_Dependencies_CookController
     {
-        private IUserInterface ui;
+        private IUserInterface _sut;
         private ICookController cooker;
         private ITimer timer;
         private IDisplay display;
@@ -38,16 +38,16 @@ namespace Microwave.Test.Integration
 
             //Real
             cooker = new CookController(timer, display, powerTube);
-            ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
-            cooker = new CookController(timer, display, powerTube, ui);
+            _sut = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            cooker = new CookController(timer, display, powerTube, _sut);
         }
 
         [Test]
         public void UI_CC_PowerPressed_CookerStartsPowerTube()
         {
-            ui.OnPowerPressed(powerButton, EventArgs.Empty); //Pressed once : 50 W
-            ui.OnTimePressed(timeButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
+            _sut.OnPowerPressed(powerButton, EventArgs.Empty); //Pressed once : 50 W
+            _sut.OnTimePressed(timeButton, EventArgs.Empty);
+            _sut.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
 
             powerTube.Received(1).TurnOn(50);
         }
@@ -55,10 +55,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_CC_CancelCooking_PowerTubeOff()
         {
-            ui.OnPowerPressed(powerButton, EventArgs.Empty);
-            ui.OnTimePressed(timeButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
+            _sut.OnPowerPressed(powerButton, EventArgs.Empty);
+            _sut.OnTimePressed(timeButton, EventArgs.Empty);
+            _sut.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
+            _sut.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
 
             powerTube.Received(1).TurnOff();
         }

@@ -11,7 +11,7 @@ namespace Microwave.Test.Integration
     public class IT4_T_UI_Dependencies_Display_Light
     {
         private ICookController cooker;
-        private IUserInterface ui;
+        private IUserInterface _sut;
         private IDisplay display;
         private ILight light;
         private IButton powerButton;
@@ -34,7 +34,7 @@ namespace Microwave.Test.Integration
             //Real
             display = new Display(output);
             light = new Light(output);
-            ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            _sut = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
         }
 
         [TestCase(50)]
@@ -45,7 +45,7 @@ namespace Microwave.Test.Integration
             for (int i = 0; i < power / 50; i++)
             {
                 //powerButton.Pressed += Raise.Event();
-                ui.OnPowerPressed(powerButton,EventArgs.Empty);
+                _sut.OnPowerPressed(powerButton,EventArgs.Empty);
             }
 
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains(Convert.ToString(power))));
@@ -60,7 +60,7 @@ namespace Microwave.Test.Integration
             powerButton.Pressed += Raise.Event();
             for (int i = 1; i <= minutes; i++)
             {
-                ui.OnTimePressed(timeButton, EventArgs.Empty);
+                _sut.OnTimePressed(timeButton, EventArgs.Empty);
             }
             
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains(Convert.ToString(minutes))));
@@ -69,23 +69,23 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_Display_Clear()
         {
-            ui.OnPowerPressed(powerButton, EventArgs.Empty);
-            ui.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
+            _sut.OnPowerPressed(powerButton, EventArgs.Empty);
+            _sut.OnStartCancelPressed(startCancelButton, EventArgs.Empty);
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains("Display cleared")));
         }
 
         [Test]
         public void UI_Light_On()
         {
-            ui.OnDoorOpened(door, EventArgs.Empty);
+            _sut.OnDoorOpened(door, EventArgs.Empty);
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains("on")));
         }
 
         [Test]
         public void UI_Light_Off()
         {
-            ui.OnDoorOpened(door, EventArgs.Empty);
-            ui.OnDoorClosed(door, EventArgs.Empty);
+            _sut.OnDoorOpened(door, EventArgs.Empty);
+            _sut.OnDoorClosed(door, EventArgs.Empty);
 
             output.Received().OutputLine(Arg.Is<string>(s => s.Contains("off")));
         }

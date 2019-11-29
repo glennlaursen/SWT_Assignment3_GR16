@@ -13,7 +13,7 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT1_T_CookController_X_Display_PowerTube_S_Timer_Output
     {
-        private ICookController _T;
+        private ICookController _sut;
         private IPowerTube _powerTube;
         private IDisplay _display;
         private ITimer _timer;
@@ -34,7 +34,7 @@ namespace Microwave.Test.Integration
             _powerTube = new PowerTube(_output);
 
             // Class under test
-            _T = new CookController(_timer, _display, _powerTube);
+            _sut = new CookController(_timer, _display, _powerTube);
 
             
         }
@@ -46,7 +46,7 @@ namespace Microwave.Test.Integration
         {
             _timer.TimeRemaining.Returns(09);
 
-            _T.StartCooking(50,10);
+            _sut.StartCooking(50,10);
             _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
             //_T.OnTimerTick(new object(), EventArgs.Empty);
 
@@ -63,7 +63,7 @@ namespace Microwave.Test.Integration
         [TestCase(350, 10)]
         public void CookController_StartCooking_TurnOn(int pwr, int time)
         {
-            _T.StartCooking(pwr, time);
+            _sut.StartCooking(pwr, time);
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"PowerTube works with {pwr} W")));
         }
 
@@ -75,7 +75,7 @@ namespace Microwave.Test.Integration
         [TestCase(-50, 10)]
         public void CookController_StartCooking_TurnOn_Exception(int pwr, int time)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => _T.StartCooking(pwr, time));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _sut.StartCooking(pwr, time));
         }
 
         [TestCase(50, 10)]
@@ -83,8 +83,8 @@ namespace Microwave.Test.Integration
         [TestCase(350, 10)]
         public void CookController_StartCooking_TurnOn_AlreadyOn(int pwr, int time)
         {
-            _T.StartCooking(pwr, time);
-            Assert.Throws<ApplicationException>(() => _T.StartCooking(pwr, time));
+            _sut.StartCooking(pwr, time);
+            Assert.Throws<ApplicationException>(() => _sut.StartCooking(pwr, time));
 
         }
 
@@ -93,16 +93,16 @@ namespace Microwave.Test.Integration
         {
             int pwr = 50;
             int time = 10;
-            _T.StartCooking(pwr, time);
+            _sut.StartCooking(pwr, time);
 
-            _T.Stop();
+            _sut.Stop();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"PowerTube turned off")));
         }
 
         [Test]
         public void CookController_Stop_TurnOff_AlreadyOff()
         {
-            _T.Stop();
+            _sut.Stop();
             _output.DidNotReceive().OutputLine(Arg.Any<string>());
         }
         
